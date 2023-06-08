@@ -1,0 +1,169 @@
+<div class="table-wrapper mat-elevation-z8 p-3">
+  <label class="table-title">IP addresses list</label>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filter Results
+      </mat-panel-title>
+      <mat-panel-description>
+        <a color="primary" mat-button clickStopPropagation class="m-3" (click)="filtersForm.reset(); onFilterChange()"
+           *ngIf="filtersForm.dirty">Clear</a>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form (change)="onFilterChange()" style="display: flex" [formGroup]="filtersForm">
+      <div class="mx-1">
+        <mat-form-field>
+          <input matInput type="text" formControlName="ip" placeholder="IP">
+        </mat-form-field>
+      </div>
+      <div class="mx-1">
+        <mat-form-field>
+          <input matInput type="text" formControlName="comment" placeholder="Comment">
+        </mat-form-field>
+      </div>
+    </form>
+
+  </mat-expansion-panel>
+
+  <div class="mt-3" style="position: relative;" *ngIf="dataSource$ | async as dataSource">
+    <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;" *ngIf="loading$ | async">
+      <mat-progress-spinner color="primary" mode="indeterminate" diameter="50">
+      </mat-progress-spinner>
+    </div>
+    <table multiTemplateDataRows mat-table [dataSource]="dataSource" class="w-100" matSort
+           (matSortChange)="onSortChange($event)">
+
+      <ng-container matColumnDef="ip">
+        <th mat-header-cell *matHeaderCellDef>IP Address</th>
+        <td mat-cell *matCellDef="let element"> {{element.ip}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef>Comment</th>
+        <td style="width: 300px;" mat-cell *matCellDef="let element">{{element.comment || '---'}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="mbps">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>mbps</th>
+        <td mat-cell *matCellDef="let element"> {{element.mbps}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="pps">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>pps</th>
+        <td mat-cell *matCellDef="let element"> {{element.pps}} </td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="'actions'">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button clickStopPropagation mat-icon-button (click)="deleteIpAddress(element._id)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="expandedElement">
+        <td mat-cell *matCellDef="let element"
+            [attr.colspan]="displayedColumns.length"
+        >
+          <div [@detailExpand]="element == (expandedElement$ | async) ? 'expanded' : 'collapsed'">
+            <ng-container
+              *ngTemplateOutlet="ipAddressForm; context: {id: (expandedElement$ | async)?._id, formGroup:ipAddressEditForm}"></ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          [class.example-expanded-row]="(expandedElement$ | async) === element"
+          (click)="expand(element)"
+      ></tr>
+      <tr mat-row *matRowDef="let element; columns: ['expandedElement']" class="example-detail-row"></tr>
+
+    </table>
+    <mat-paginator
+      class="w-100"
+      [pageIndex]="pageIndex"
+      [length]="(totalItems$ | async) || 0"
+      [pageSize]="10"
+      (page)="onPageChange($event)"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+  <mat-expansion-panel class="mt-3">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add IP address
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngTemplateOutlet="ipAddressForm; context: {formGroup:ipAddressCreateForm}"></ng-container>
+  </mat-expansion-panel>
+</div>
+
+<ng-template #ipAddressForm let-id="id" let-formGroup="formGroup">
+  <form class="container py-3" [formGroup]="formGroup">
+    <div>
+      <mat-form-field>
+        <input matInput type="text" formControlName="ip" placeholder="IP">
+        <mat-error *ngIf="formGroup.controls.ip.hasError('required')">Ip is required</mat-error>
+        <mat-error *ngIf="formGroup.controls.ip.hasError('pattern')">This is not valid IP.</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="text" formControlName="comment" placeholder="Comment">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="number" formControlName="mbps" placeholder="Mbps">
+        <mat-error *ngIf="formGroup.controls.mbps.hasError('required')">Ip is required</mat-error>
+        <mat-error *ngIf="formGroup.controls.mbps.hasError('min')">Value must greater than 0</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="number" formControlName="pps" placeholder="PPS">
+        <mat-error *ngIf="formGroup.controls.pps.hasError('required')">Ip is required</mat-error>
+        <mat-error *ngIf="formGroup.controls.pps.hasError('min')">Value must greater than 0</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="number" formControlName="lat" placeholder="Latitude">
+        <mat-error *ngIf="formGroup.controls.lat.hasError('required')">Ip is required</mat-error>
+        <mat-error *ngIf="formGroup.controls.lat.hasError('min')">Value must greater than -90</mat-error>
+        <mat-error *ngIf="formGroup.controls.lat.hasError('max')">Value must lower than 90</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput type="number" formControlName="lon" placeholder="Longitude">
+        <mat-error *ngIf="formGroup.controls.lon.hasError('required')">Ip is required</mat-error>
+        <mat-error *ngIf="formGroup.controls.lon.hasError('min')">Value must greater than -180</mat-error>
+        <mat-error *ngIf="formGroup.controls.lon.hasError('max')">Value must lower than 180</mat-error>
+      </mat-form-field>
+    </div>
+    <button
+      [disabled]="!formGroup.valid"
+      (click)="submitForm(id)" type="submit" mat-raised-button color="primary">Save
+    </button>
+
+
+  </form>
+</ng-template>

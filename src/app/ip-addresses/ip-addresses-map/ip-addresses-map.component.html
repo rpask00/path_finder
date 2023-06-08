@@ -1,0 +1,11 @@
+<div style="padding:1vh; position: sticky; top: 0">
+  <ng-container *ngIf="markers$ | async as markers">
+    <div style="height: 98vh; padding:1vh; position: sticky"
+         leaflet
+         [leafletLayers]="markers"
+         [leafletOptions]="options">
+    </div>
+  </ng-container>
+</div>
+
+
