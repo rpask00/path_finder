@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {IpAddressesRoutingModule} from "./ip-addresses-routing.module";
+import {HomeRoutingModule} from "./home-routing.module";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -12,24 +12,22 @@ import {MatInputModule} from "@angular/material/input";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {ClickStopPropagationDirective} from "../shared/click-stop-propagation.directive";
 import {ClickPreventDefaultDirective} from "../shared/click-prevent-default.directive";
-import {IpAddressesComponent} from './ip-addresses.component';
-import {IpAddressesListComponent} from "./ip-addresses-list/ip-addresses-list.component";
-import {IpAddressesService} from "./ip-addresses.service";
-import {IpAddressesMapComponent} from "./ip-addresses-map/ip-addresses-map.component";
+import {HomeComponent} from './home.component';
+import {MainMapComponent} from "./main-map/main-map.component";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {HomeService} from "./home.service";
 
 
 @NgModule({
   declarations: [
-    IpAddressesListComponent,
-    IpAddressesMapComponent,
-    IpAddressesComponent,
+    MainMapComponent,
+    HomeComponent,
     ClickStopPropagationDirective,
     ClickPreventDefaultDirective,
   ],
   imports: [
     CommonModule,
-    IpAddressesRoutingModule,
+    HomeRoutingModule,
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
@@ -41,7 +39,9 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
     MatInputModule,
     MatExpansionModule,
   ],
-  providers: [IpAddressesService],
+  providers: [
+    HomeService,
+  ]
 })
-export class IpAddressesModule {
+export class HomeModule {
 }

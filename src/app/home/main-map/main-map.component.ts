@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, Layer, Marker, tileLayer} from "leaflet";
-import {IpAddress, IpAddressesService} from "../ip-addresses.service";
+import {IpAddress, HomeService} from "../home.service";
 import {combineLatest, map, Observable} from "rxjs";
 import {iconActive, iconDefault} from "../../shared/markerIcons";
 
 
 @Component({
-  selector: 'app-ip-addresses-map',
-  templateUrl: './ip-addresses-map.component.html',
-  styleUrls: ['./ip-addresses-map.component.scss']
+  selector: 'app-home-map',
+  templateUrl: './main-map.component.html',
+  styleUrls: ['./main-map.component.scss']
 })
-export class IpAddressesMapComponent implements OnInit {
+export class MainMapComponent implements OnInit {
   constructor(
-    private ipAddressesService: IpAddressesService,
+    private ipAddressesService: HomeService,
   ) {
   }
   options = {

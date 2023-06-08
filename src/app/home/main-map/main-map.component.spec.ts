@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IpAddressesMapComponent } from './ip-addresses-map.component';
+import { MainMapComponent } from './main-map.component';
 
 describe('IpAddressesMapComponent', () => {
-  let component: IpAddressesMapComponent;
-  let fixture: ComponentFixture<IpAddressesMapComponent>;
+  let component: MainMapComponent;
+  let fixture: ComponentFixture<MainMapComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [IpAddressesMapComponent]
+      declarations: [MainMapComponent]
     });
-    fixture = TestBed.createComponent(IpAddressesMapComponent);
+    fixture = TestBed.createComponent(MainMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

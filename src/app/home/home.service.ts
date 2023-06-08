@@ -3,6 +3,7 @@ import {ResourceService} from "../services/resource.service";
 import {DataSource} from "../services/dataSource";
 import {ToastrService} from "ngx-toastr";
 import {FormBuilder, Validators} from "@angular/forms";
+import {HomeModule} from "./home.module";
 
 const IP_ADDRESS_PATTERN: RegExp = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
@@ -17,7 +18,7 @@ export interface IpAddress {
 }
 
 @Injectable()
-export class IpAddressesService extends DataSource<IpAddress> {
+export class HomeService extends DataSource<IpAddress> {
   resource = 'ip_addresses';
 
   constructor(

@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [{
-  path: 'ip-addresses',
-  loadChildren: () => import('./ip-addresses/ip-addresses.module').then(m => m.IpAddressesModule)
+  path: 'home',
+  loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
 }, {
   path: '',
-  redirectTo: 'ip-addresses',
+  redirectTo: 'home',
   pathMatch: 'full'
 }];
 
