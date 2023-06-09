@@ -20,6 +20,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {PointInputComponent} from './dashboard/point-input/point-input.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {PointService} from "../services/point.service";
+import { PointListComponent } from './dashboard/point-list/point-list.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {PointService} from "../services/point.service";
     ClickPreventDefaultDirective,
     DashboardComponent,
     PointInputComponent,
+    PointListComponent,
   ],
   imports: [
     CommonModule,

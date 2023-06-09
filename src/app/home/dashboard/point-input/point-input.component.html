@@ -50,7 +50,7 @@
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset(); newPointForm.reset()">Reset</button>
-          <button mat-raised-button (click)="savePoint()">Zapisz</button>
+          <button mat-raised-button [disabled]="newPointForm.invalid" (click)="savePoint()">Zapisz</button>
         </div>
       </mat-step>
     </mat-stepper>
