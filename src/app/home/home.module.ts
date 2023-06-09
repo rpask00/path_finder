@@ -16,6 +16,10 @@ import {HomeComponent} from './home.component';
 import {MainMapComponent} from "./main-map/main-map.component";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {HomeService} from "./home.service";
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {PointInputComponent} from './dashboard/point-input/point-input.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {PointService} from "../services/point.service";
 
 
 @NgModule({
@@ -24,6 +28,8 @@ import {HomeService} from "./home.service";
     HomeComponent,
     ClickStopPropagationDirective,
     ClickPreventDefaultDirective,
+    DashboardComponent,
+    PointInputComponent,
   ],
   imports: [
     CommonModule,
@@ -38,9 +44,11 @@ import {HomeService} from "./home.service";
     ReactiveFormsModule,
     MatInputModule,
     MatExpansionModule,
+    MatStepperModule,
   ],
   providers: [
     HomeService,
+    PointService
   ]
 })
 export class HomeModule {
