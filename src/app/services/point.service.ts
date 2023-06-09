@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 import {LeafletMouseEvent} from "leaflet";
+import {ResourceService} from "./resource.service";
 
 export interface Point {
   name: string;
@@ -12,9 +13,12 @@ export interface Point {
 export class PointService {
   leafletMouseEvent$ = new Subject<LeafletMouseEvent>();
 
-  constructor() { }
+  constructor(
+    private resourceService: ResourceService
+  ) {
+  }
 
   addPoint(point: Point) {
-    console.log(point)
+    this.resourceService.create('points', point).subscribe();
   }
 }

@@ -1,17 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PointListService} from "./point-list.service";
 import {Point} from "../../../services/point.service";
 import {expand, Observable} from "rxjs";
 import {Sort} from "@angular/material/sort";
 import {PageEvent} from "@angular/material/paginator";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-point-list',
   templateUrl: './point-list.component.html',
   styleUrls: ['./point-list.component.scss'],
-  providers: [PointListService]
-})
-export class PointListComponent {
+  providers: [PointListService],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]})
+export class PointListComponent implements OnInit {
 
 
   displayedColumns = [
@@ -55,7 +62,8 @@ export class PointListComponent {
     })
   }
 
-
-
+  ngOnInit(): void {
+    this._pointListService.connect()
+  }
 
 }
