@@ -20,7 +20,10 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {PointInputComponent} from './dashboard/point-input/point-input.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {PointService} from "../services/point.service";
-import { PointListComponent } from './dashboard/point-list/point-list.component';
+import {PointListComponent} from './dashboard/point-list/point-list.component';
+import {LocationSearchComponent} from "./dashboard/locations/locations.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {LocationsService} from "./dashboard/locations/locations.service";
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import { PointListComponent } from './dashboard/point-list/point-list.component'
     ClickPreventDefaultDirective,
     DashboardComponent,
     PointInputComponent,
+    LocationSearchComponent,
     PointListComponent,
   ],
   imports: [
@@ -47,10 +51,12 @@ import { PointListComponent } from './dashboard/point-list/point-list.component'
     MatInputModule,
     MatExpansionModule,
     MatStepperModule,
+    MatAutocompleteModule,
   ],
   providers: [
     HomeService,
-    PointService
+    PointService,
+    LocationsService
   ]
 })
 export class HomeModule {

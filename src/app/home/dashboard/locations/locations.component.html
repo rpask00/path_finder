@@ -1,0 +1,16 @@
+<mat-form-field class=locations-autocomplete *ngIf="locations$ | async as locations">
+  <mat-label>Lokalizacja</mat-label>
+  <input matInput
+         aria-label="State"
+         [matAutocomplete]="auto"
+         [formControl]="searchControl">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this,locations)">
+    <mat-option *ngFor="let location of locations" [value]="location.place_id">
+      <span style="{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }">{{location.description}}</span> |
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
