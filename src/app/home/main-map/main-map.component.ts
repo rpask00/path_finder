@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {latLng, LeafletMouseEvent, tileLayer} from "leaflet";
-import {PointService} from "../../services/point.service";
+import {latLng, Layer, LeafletMouseEvent, Marker, tileLayer} from "leaflet";
+import {LocationsService} from "../services/locations.service";
+import {map, Observable} from "rxjs";
+import {iconDefault} from "../../shared/markerIcons";
 
 
 @Component({
@@ -11,7 +13,7 @@ import {PointService} from "../../services/point.service";
 export class MainMapComponent implements OnInit {
 
   constructor(
-    private _pointService: PointService,
+    private _locationsService: LocationsService,
   ) {
   }
 
@@ -23,10 +25,18 @@ export class MainMapComponent implements OnInit {
     center: latLng(50, 19)
   };
 
+
+  markers$: Observable<Layer[]> = this._locationsService.pickedLocations$.pipe(
+    map((locations) => locations.map((location) => new Marker([1, 3], {}).bindPopup(`
+          <p>Comment: <b>${location.description}</b></p>`
+      ).setIcon(iconDefault)
+    ))
+  )
+
   ngOnInit(): void {
+    this._locationsService.pickedLocations$.subscribe(console.log)
   }
 
   onMapClick($event: LeafletMouseEvent) {
-    this._pointService.leafletMouseEvent$.next($event);
   }
 }

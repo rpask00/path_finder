@@ -4,8 +4,12 @@
          aria-label="State"
          [matAutocomplete]="auto"
          [formControl]="searchControl">
+
+  <button *ngIf="searchControl.value" mat-icon-button matSuffix (click)="searchControl.reset()">
+    <mat-icon>cancel</mat-icon>
+  </button>
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this,locations)">
-    <mat-option *ngFor="let location of locations" [value]="location.place_id">
+    <mat-option *ngFor="let location of locations" [value]="location">
       <span style="{
         white-space: nowrap;
         overflow: hidden;
@@ -13,4 +17,18 @@
       }">{{location.description}}</span> |
     </mat-option>
   </mat-autocomplete>
+
+
 </mat-form-field>
+
+<mat-chip-listbox aria-label="Dog selection">
+  <mat-chip *ngFor="let location of (pickedLocations$ | async)" color="accent" (removed)="removedLocation$.next(location)">
+    {{location.description}}
+    <button matChipRemove>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip>
+
+</mat-chip-listbox>
+
+<button mat-raised-button (click)="submit()">submit</button>

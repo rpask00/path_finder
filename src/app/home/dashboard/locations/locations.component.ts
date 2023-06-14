@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {debounceTime, map, Observable, startWith, switchMap} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {DestroyerComponent} from "../../../shared/destroyer.component";
-import {LocationsService} from "./locations.service";
+import {LocationsService} from "../../services/locations.service";
+import {FormControl} from "@angular/forms";
 
 export interface Location {
   description: string;
@@ -17,24 +17,24 @@ export interface Location {
   styleUrls: ['./locations.component.scss']
 })
 export class LocationSearchComponent extends DestroyerComponent implements OnInit {
-  public searchControl = new FormControl();
-  public locations$: Observable<Location[]> = this.searchControl.valueChanges.pipe(
-    startWith([]),
-    debounceTime(500),
-    switchMap((value) => this.locationsService.getLocations(value)),
-  )
+  public searchControl: FormControl<any> = this.locationsService.searchControl;
+  public locations$: Observable<Location[]> = this.locationsService.locations$;
+  public removedLocation$: Subject<Location> = this.locationsService.removedLocation$;
+  public pickedLocations$: Observable<Location[]> = this.locationsService.pickedLocations$;
 
-
-  constructor(
-    private locationsService: LocationsService
-  ) {
+  constructor(private locationsService: LocationsService) {
     super();
   }
 
   ngOnInit() {
+    this.pickedLocations$.subscribe(console.log)
   }
 
-  displayFn(locations?: Location[], value?: string) {
-    return locations?.find(location => location.place_id === value)?.description || '';
+  displayFn(locations?: Location[], location?: Location) {
+    return location?.description || '';
+  }
+
+  async submit() {
+    this.locationsService.searchPath().subscribe(console.log)
   }
 }
