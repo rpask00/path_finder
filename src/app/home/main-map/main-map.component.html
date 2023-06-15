@@ -1,7 +1,8 @@
-<div style="padding:1vh; position: sticky; top: 0">
+<div style="padding:1vh; position: sticky; top: 0" *ngIf="markers$ | async as markers">
   <div style="height: 98vh; padding:1vh; position: sticky"
        leaflet
        (leafletClick)="onMapClick($event)"
+       [leafletLayers]="markers"
        [leafletOptions]="options">
   </div>
 </div>

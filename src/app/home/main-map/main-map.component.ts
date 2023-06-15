@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {latLng, Layer, LeafletMouseEvent, Marker, tileLayer} from "leaflet";
-import {LocationsService} from "../services/locations.service";
+import {LocationDetail, LocationsService} from "../services/locations.service";
 import {map, Observable} from "rxjs";
 import {iconDefault} from "../../shared/markerIcons";
 
@@ -26,9 +26,10 @@ export class MainMapComponent implements OnInit {
   };
 
 
-  markers$: Observable<Layer[]> = this._locationsService.pickedLocations$.pipe(
-    map((locations) => locations.map((location) => new Marker([1, 3], {}).bindPopup(`
-          <p>Comment: <b>${location.description}</b></p>`
+  public markers$: Observable<Layer[]> = this._locationsService.mapPoints$.pipe(
+    map((locationDetails) => locationDetails.map((ld: LocationDetail) => new Marker([ld.geometry.location.lat, ld.geometry.location.lng], {}).bindPopup(`
+          <h5>IP Address: <b>${ld.name}</b></h5>
+          <p>Comment: <b>${ld.formatted_address}</b></p>`
       ).setIcon(iconDefault)
     ))
   )
