@@ -35,7 +35,7 @@ export class MainMapComponent implements OnInit {
   )
 
   ngOnInit(): void {
-    this._locationsService.pickedLocations$.subscribe(console.log)
+    this._locationsService.mapPoints$.subscribe(l => console.log(l))
   }
 
   onMapClick($event: LeafletMouseEvent) {

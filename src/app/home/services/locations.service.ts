@@ -65,6 +65,7 @@ export class LocationsService {
     })),
     switchMap((locations$: Observable<LocationDetail>[]) => forkJoin(locations$)),
     catchError(() => of([])),
+    startWith([]),
   )
 
 
