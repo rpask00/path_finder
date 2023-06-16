@@ -35,6 +35,6 @@ export class LocationSearchComponent extends DestroyerComponent implements OnIni
   }
 
   async submit() {
-    // this.locationsService.searchPath().subscribe(console.log)
+    this.locationsService.vrp_solve()
   }
 }
