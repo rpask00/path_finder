@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {LocationsService} from "../services/locations.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+
+  readonly loading$ = this.locationsService.loading$;
+
+  constructor(
+    private locationsService: LocationsService
+  ) {
+  }
+
+  async submit() {
+    this.locationsService.vrp_solve()
+  }
+
 
 }

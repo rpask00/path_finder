@@ -22,7 +22,7 @@ import {LatLngExpression} from "leaflet";
 
 export interface ILocation {
   description: string;
-  structured_formatting:{
+  structured_formatting: {
     main_text: string,
     secondary_text: string
   }
@@ -90,6 +90,11 @@ export class LocationsService {
     startWith([]),
   )
 
+  private _loading$ = new BehaviorSubject<boolean>(false);
+  get loading$() {
+    return this._loading$.asObservable();
+  }
+
   public routeResponse$ = new BehaviorSubject<RouteResponse>([])
 
 
@@ -104,6 +109,7 @@ export class LocationsService {
   }
 
   vrp_solve() {
+    this._loading$.next(true)
     this.pickedLocations$.pipe(
       switchMap((locations) => {
           const depot = 'depot=0'
@@ -111,7 +117,15 @@ export class LocationsService {
           const place_ids = locations.map(l => `place_id=${l.place_id}`).join('&')
           return this._http.get(`${environment.apiUrl}vrp_solve?${depot}&${num_vehicles}&${place_ids}`) as Observable<RouteResponse>
         }
-      )).subscribe((routeResponse) => this.routeResponse$.next(routeResponse))
+      )).subscribe({
+          next: (routeResponse) => {
+            this._loading$.next(false)
+            this.routeResponse$.next(routeResponse);
+          },
+          error: () => {
+            this._loading$.next(false)
+          }
+    })
   }
 
 }

@@ -2,16 +2,30 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-       Dodaj punkty na mapie
+        Dodaj punkty na mapie
       </mat-panel-title>
     </mat-expansion-panel-header>
 
 
-    <app-location-search></app-location-search>
-    <app-locations-list></app-locations-list>
+    <form>
+      <div class="progress-spinner-container" *ngIf="loading$ | async">
+        <mat-progress-spinner color="primary" mode="indeterminate" diameter="50"></mat-progress-spinner>
+      </div>
 
 
-    <button class="mt-3" mat-raised-button color="primary">{{'Optymalizuj' | uppercase}} </button>
+      <section class="p-3">
+        <app-location-search></app-location-search>
+        <app-locations-list></app-locations-list>
+
+        <button
+          clickPreventDefault
+          [disabled]="loading$ | async"
+          (click)="submit()"
+          class="mt-3" mat-raised-button color="primary">{{'Optymalizuj' | uppercase}}
+        </button>
+      </section>
+    </form>
 
   </mat-expansion-panel>
 </mat-accordion>
+

@@ -1,3 +1,13 @@
 mat-expansion-panel {
   width: 700px;
+  position: relative;
+
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+  }
+}
+
+
+form {
+  position: relative;
 }
