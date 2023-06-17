@@ -1,0 +1,8 @@
+mat-chip {
+  height: fit-content !important;
+  padding: 3px;
+  .chip-content {
+    max-width: 500px;
+    white-space: break-spaces;
+  }
+}

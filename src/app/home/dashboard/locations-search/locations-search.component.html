@@ -20,15 +20,3 @@
 
 
 </mat-form-field>
-
-<mat-chip-listbox aria-label="Dog selection">
-  <mat-chip *ngFor="let location of (pickedLocations$ | async)" color="accent" (removed)="removedLocation$.next(location)">
-    {{location.description}}
-    <button matChipRemove>
-      <mat-icon>cancel</mat-icon>
-    </button>
-  </mat-chip>
-
-</mat-chip-listbox>
-
-<button mat-raised-button (click)="submit()">submit</button>

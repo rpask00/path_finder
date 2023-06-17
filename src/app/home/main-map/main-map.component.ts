@@ -28,8 +28,8 @@ export class MainMapComponent implements OnInit {
 
   public markers$: Observable<Layer[]> = this._locationsService.mapPoints$.pipe(
     map((locationDetails) => locationDetails.map((ld: LocationDetail) => new Marker([ld.geometry.location.lat, ld.geometry.location.lng], {}).bindPopup(`
-          <h5>IP Address: <b>${ld.name}</b></h5>
-          <p>Comment: <b>${ld.formatted_address}</b></p>`
+          <h5><b>${ld.name}</b></h5>
+          <p><b>${ld.formatted_address}</b></p>`
       ).setIcon(iconDefault)
     ))
   )

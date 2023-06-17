@@ -1,15 +1,14 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <app-location-search></app-location-search>
-    </div>
-  </div>
-</div>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+       Dodaj punkty na mapie
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+
+    <app-location-search></app-location-search>
+    <app-locations-list></app-locations-list>
+
+  </mat-expansion-panel>
+</mat-accordion>

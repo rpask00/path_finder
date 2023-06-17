@@ -5,7 +5,6 @@ import {ILocation, LocationsService} from "../../services/locations.service";
 import {FormControl} from "@angular/forms";
 
 
-
 @Component({
   selector: 'app-location-search',
   templateUrl: './locations-search.component.html',
@@ -14,22 +13,15 @@ import {FormControl} from "@angular/forms";
 export class LocationSearchComponent extends DestroyerComponent implements OnInit {
   public searchControl: FormControl<any> = this.locationsService.searchControl;
   public locations$: Observable<ILocation[]> = this.locationsService.locations$;
-  public removedLocation$: Subject<ILocation> = this.locationsService.removedLocation$;
-  public pickedLocations$: Observable<ILocation[]> = this.locationsService.pickedLocations$;
 
   constructor(private locationsService: LocationsService) {
     super();
   }
 
   ngOnInit() {
-    this.pickedLocations$.subscribe(console.log)
   }
 
   displayFn(locations?: ILocation[], location?: ILocation) {
     return location?.description || '';
-  }
-
-  async submit() {
-    this.locationsService.vrp_solve()
   }
 }
