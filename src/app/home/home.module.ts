@@ -18,11 +18,11 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {HomeService} from "./services/home.service";
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {MatStepperModule} from "@angular/material/stepper";
-import {PointService} from "../services/point.service";
-import {LocationSearchComponent} from "./dashboard/locations/locations.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {LocationsService} from "./services/locations.service";
 import {MatChipsModule} from "@angular/material/chips";
+import {LocationSearchComponent} from "./dashboard/locations-search/locations-search.component";
+import {LocationsListComponent} from "./dashboard/locations-list/locations-list.component";
 
 
 @NgModule({
@@ -33,6 +33,7 @@ import {MatChipsModule} from "@angular/material/chips";
     ClickPreventDefaultDirective,
     DashboardComponent,
     LocationSearchComponent,
+    LocationsListComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +54,6 @@ import {MatChipsModule} from "@angular/material/chips";
   ],
   providers: [
     HomeService,
-    PointService,
     LocationsService
   ]
 })

@@ -1,26 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {DestroyerComponent} from "../../../shared/destroyer.component";
-import {LocationsService} from "../../services/locations.service";
+import {ILocation, LocationsService} from "../../services/locations.service";
 import {FormControl} from "@angular/forms";
 
-export interface Location {
-  description: string;
-  place_id: string;
-  reference: string;
-  types: string[];
-}
+
 
 @Component({
   selector: 'app-location-search',
-  templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.scss']
+  templateUrl: './locations-search.component.html',
+  styleUrls: ['./locations-search.component.scss']
 })
 export class LocationSearchComponent extends DestroyerComponent implements OnInit {
   public searchControl: FormControl<any> = this.locationsService.searchControl;
-  public locations$: Observable<Location[]> = this.locationsService.locations$;
-  public removedLocation$: Subject<Location> = this.locationsService.removedLocation$;
-  public pickedLocations$: Observable<Location[]> = this.locationsService.pickedLocations$;
+  public locations$: Observable<ILocation[]> = this.locationsService.locations$;
+  public removedLocation$: Subject<ILocation> = this.locationsService.removedLocation$;
+  public pickedLocations$: Observable<ILocation[]> = this.locationsService.pickedLocations$;
 
   constructor(private locationsService: LocationsService) {
     super();
@@ -30,7 +25,7 @@ export class LocationSearchComponent extends DestroyerComponent implements OnIni
     this.pickedLocations$.subscribe(console.log)
   }
 
-  displayFn(locations?: Location[], location?: Location) {
+  displayFn(locations?: ILocation[], location?: ILocation) {
     return location?.description || '';
   }
 

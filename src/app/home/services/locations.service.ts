@@ -15,10 +15,17 @@ import {
   Subject,
   tap
 } from "rxjs";
-import {Location} from "../dashboard/locations/locations.component";
 import {FormControl} from "@angular/forms";
 import {filter, map, switchMap} from "rxjs/operators";
-import {LatLngExpression, Layer, Polyline} from "leaflet";
+import {LatLngExpression} from "leaflet";
+
+
+export interface ILocation {
+  description: string;
+  place_id: string;
+  reference: string;
+  types: string[];
+}
 
 export interface LocationDetail {
   place_id: string,
@@ -44,10 +51,10 @@ export type RouteResponse = Array<{
 export class LocationsService {
 
   public searchControl = new FormControl();
-  public removedLocation$ = new Subject<Location>();
+  public removedLocation$ = new Subject<ILocation>();
 
 
-  public locations$: Observable<Location[]> = this.searchControl.valueChanges.pipe(
+  public locations$: Observable<ILocation[]> = this.searchControl.valueChanges.pipe(
     startWith([]),
     debounceTime(500),
     switchMap((value) => {
@@ -60,7 +67,7 @@ export class LocationsService {
     this.removedLocation$.pipe(map(location => ({type: 'remove', location})))
   ).pipe(
     filter(({location}) => location && typeof location === 'object'),
-    scan((acc: Location[], {location, type}) => {
+    scan((acc: ILocation[], {location, type}) => {
       return type === 'add' ? [...acc, location] : acc.filter(l => l.place_id !== location.place_id)
     }, []),
     tap(() => setTimeout(() => this.searchControl.reset())),
@@ -86,8 +93,8 @@ export class LocationsService {
   ) {
   }
 
-  getLocations(value: string): Observable<Location[]> {
-    const request$ = this._http.get(`${environment.apiUrl}locations?search=${value}`) as Observable<Location[]>
+  getLocations(value: string): Observable<ILocation[]> {
+    const request$ = this._http.get(`${environment.apiUrl}locations?search=${value}`) as Observable<ILocation[]>
     return request$.pipe(catchError(() => of([])))
   }
 
