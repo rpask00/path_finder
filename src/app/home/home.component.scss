@@ -1,0 +1,9 @@
+.container-fluid {
+  position: relative;
+  padding: 0;
+
+  .dashboard-container {
+    position: absolute;
+    z-index: 1001;
+  }
+}

@@ -1,6 +1,6 @@
-<div style="padding:1vh; position: sticky; top: 0" *ngIf="markers$ | async as markers">
+<div *ngIf="markers$ | async as markers">
   <ng-container *ngIf="mapRoutes$ | async as routes">
-    <div style="height: 98vh; padding:1vh; position: sticky"
+    <div style="height: 100vh;"
          leaflet
          (leafletClick)="onMapClick($event)"
          [leafletLayers]="markers.concat(routes)"
