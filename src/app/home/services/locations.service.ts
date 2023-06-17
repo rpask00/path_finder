@@ -22,6 +22,10 @@ import {LatLngExpression} from "leaflet";
 
 export interface ILocation {
   description: string;
+  structured_formatting:{
+    main_text: string,
+    secondary_text: string
+  }
   place_id: string;
   reference: string;
   types: string[];
