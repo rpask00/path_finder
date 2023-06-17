@@ -1,4 +1,6 @@
+<p>Wybierz typy wśród których chcesz wyszukać (max 5): </p>
 <mat-chip-listbox
+  class="pb-3"
   [(ngModel)]="selected"
   (ngModelChange)="changed()" aria-label="Fish selection" [multiple]="true">
   <mat-chip-option
