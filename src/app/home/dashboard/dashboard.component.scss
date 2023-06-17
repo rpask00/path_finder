@@ -10,4 +10,7 @@ mat-expansion-panel {
 
 form {
   position: relative;
+  .form-content{
+    padding: 0 24px 24px 24px;
+  }
 }
