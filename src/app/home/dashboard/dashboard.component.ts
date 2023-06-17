@@ -8,6 +8,7 @@ import {LocationsService} from "../services/locations.service";
 })
 export class DashboardComponent {
 
+  public num_vehicles = 0;
   readonly loading$ = this.locationsService.loading$;
 
   constructor(
@@ -16,7 +17,7 @@ export class DashboardComponent {
   }
 
   async submit() {
-    this.locationsService.vrp_solve()
+    this.locationsService.vrp_solve(this.num_vehicles)
   }
 
 

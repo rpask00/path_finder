@@ -108,23 +108,23 @@ export class LocationsService {
     return request$.pipe(catchError(() => of([])))
   }
 
-  vrp_solve() {
+  vrp_solve(num_vehicles: number = 2) {
     this._loading$.next(true)
     this.pickedLocations$.pipe(
       switchMap((locations) => {
-          const depot = 'depot=0'
-          const num_vehicles = 'num_vehicles=2'
-          const place_ids = locations.map(l => `place_id=${l.place_id}`).join('&')
-          return this._http.get(`${environment.apiUrl}vrp_solve?${depot}&${num_vehicles}&${place_ids}`) as Observable<RouteResponse>
+          let query = 'depot=0'
+          query += `&num_vehicles=${num_vehicles}`
+          query += `&${locations.map(l => `place_id=${l.place_id}`).join('&')}`
+          return this._http.get(`${environment.apiUrl}vrp_solve?${query}`) as Observable<RouteResponse>
         }
       )).subscribe({
-          next: (routeResponse) => {
-            this._loading$.next(false)
-            this.routeResponse$.next(routeResponse);
-          },
-          error: () => {
-            this._loading$.next(false)
-          }
+      next: (routeResponse) => {
+        this._loading$.next(false)
+        this.routeResponse$.next(routeResponse);
+      },
+      error: () => {
+        this._loading$.next(false)
+      }
     })
   }
 

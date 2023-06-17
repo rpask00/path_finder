@@ -17,6 +17,23 @@
         <app-location-search></app-location-search>
         <app-locations-list></app-locations-list>
 
+
+        <section>
+          <p class="mb-1 mt-3">Liczba kierowców:</p>
+          <mat-slider
+            class="example-margin"
+            [disabled]="false"
+            [max]="6"
+            [min]="1"
+            [step]="1"
+            [discrete]="true"
+            [showTickMarks]="true">
+            <input matSliderThumb [(ngModel)]="num_vehicles" [ngModelOptions]="{standalone: true}">
+          </mat-slider>
+
+        </section>
+
+
         <button
           clickPreventDefault
           [disabled]="loading$ | async"

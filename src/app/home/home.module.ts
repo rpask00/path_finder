@@ -7,7 +7,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSortModule} from "@angular/material/sort";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {ClickStopPropagationDirective} from "../shared/click-stop-propagation.directive";
@@ -23,6 +23,7 @@ import {LocationsService} from "./services/locations.service";
 import {MatChipsModule} from "@angular/material/chips";
 import {LocationSearchComponent} from "./dashboard/locations-search/locations-search.component";
 import {LocationsListComponent} from "./dashboard/locations-list/locations-list.component";
+import {MatSliderModule} from "@angular/material/slider";
 
 
 @NgModule({
@@ -51,6 +52,8 @@ import {LocationsListComponent} from "./dashboard/locations-list/locations-list.
     MatStepperModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatSliderModule,
+    FormsModule,
   ],
   providers: [
     HomeService,
