@@ -1,0 +1,9 @@
+<mat-chip-listbox
+  [(ngModel)]="selected"
+  (ngModelChange)="changed()" aria-label="Fish selection" [multiple]="true">
+  <mat-chip-option
+    [selectable]="this.selected.length < 5 || this.selected.includes(option.type)"
+    [value]="option.type" color="accent" *ngFor="let option of options">{{option.label}}</mat-chip-option>
+</mat-chip-listbox>
+
+

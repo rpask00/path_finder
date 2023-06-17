@@ -24,6 +24,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {LocationSearchComponent} from "./dashboard/locations-search/locations-search.component";
 import {LocationsListComponent} from "./dashboard/locations-list/locations-list.component";
 import {MatSliderModule} from "@angular/material/slider";
+import {LocationsTypesComponent} from "./dashboard/locations-types/locations-types.component";
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MatSliderModule} from "@angular/material/slider";
     DashboardComponent,
     LocationSearchComponent,
     LocationsListComponent,
+    LocationsTypesComponent,
   ],
   imports: [
     CommonModule,

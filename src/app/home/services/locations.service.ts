@@ -56,6 +56,7 @@ export class LocationsService {
 
   public searchControl = new FormControl();
   public removedLocation$ = new Subject<ILocation>();
+  public autocompleteTypes$ = new BehaviorSubject<string[]>([])
 
 
   public locations$: Observable<ILocation[]> = this.searchControl.valueChanges.pipe(
@@ -104,7 +105,8 @@ export class LocationsService {
   }
 
   getLocations(value: string): Observable<ILocation[]> {
-    const request$ = this._http.get(`${environment.apiUrl}locations?search=${value}`) as Observable<ILocation[]>
+    const types = this.autocompleteTypes$.value.map(type => `type=${type}`).join('&')
+    const request$ = this._http.get(`${environment.apiUrl}locations?search=${value}&${types}`) as Observable<ILocation[]>
     return request$.pipe(catchError(() => of([])))
   }
 
