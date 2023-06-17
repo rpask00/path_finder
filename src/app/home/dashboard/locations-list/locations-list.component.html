@@ -1,16 +1,23 @@
-<mat-chip-listbox aria-label="Dog selection">
-  <mat-chip
-    *ngFor="let location of (pickedLocations$ | async)" color="accent"
-    (removed)="removedLocation$.next(location)">
+<ng-container *ngIf="pickedLocations$ |async as pickedLocations">
 
-    <div class="chip-content">
-      {{location.description }}
-    </div>
+  <p class="mat-subtitle-2 mb-2">Wybrane punkty: </p>
+  <small class="secondary_text" *ngIf="pickedLocations.length == 0">nie wybrano żadnych punków</small>
 
-    <button matChipRemove>
-      <mat-icon>cancel</mat-icon>
-    </button>
-  </mat-chip>
+  <mat-chip-listbox aria-label="Dog selection">
 
-</mat-chip-listbox>
+    <mat-chip
+      *ngFor="let location of pickedLocations" color="accent"
+      (removed)="removedLocation$.next(location)">
 
+      <div class="chip-content">
+        {{location.description }}
+      </div>
+
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+
+  </mat-chip-listbox>
+
+</ng-container>

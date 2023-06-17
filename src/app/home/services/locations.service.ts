@@ -75,6 +75,7 @@ export class LocationsService {
       return type === 'add' ? [...acc, location] : acc.filter(l => l.place_id !== location.place_id)
     }, []),
     tap(() => setTimeout(() => this.searchControl.reset())),
+    startWith([]),
     shareReplay(1)
   )
 
