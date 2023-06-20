@@ -3,6 +3,7 @@ import {latLng, Layer, LeafletMouseEvent, Marker, Polyline, tileLayer} from "lea
 import {LocationDetail, LocationsService} from "../services/locations.service";
 import {map, Observable} from "rxjs";
 import {iconDefault} from "../../shared/markerIcons";
+import {environment} from "../../../environments/environment";
 
 
 @Component({
@@ -19,7 +20,7 @@ export class MainMapComponent implements OnInit {
 
   options = {
     layers: [
-      tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {maxZoom: 18,})
+      tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${environment.API_KEY}`, {maxZoom: 18,})
     ],
     zoom: 6,
     center: latLng(50, 19)
