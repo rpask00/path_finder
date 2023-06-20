@@ -28,3 +28,13 @@ body {
   height: 100%;
   z-index: 1;
 }
+
+
+mat-chip.chip-with-summary {
+  height: fit-content !important;
+  padding: 3px;
+  .chip-content {
+    max-width: 500px;
+    white-space: break-spaces;
+  }
+}

@@ -25,6 +25,7 @@ import {LocationSearchComponent} from "./dashboard/locations-search/locations-se
 import {LocationsListComponent} from "./dashboard/locations-list/locations-list.component";
 import {MatSliderModule} from "@angular/material/slider";
 import {LocationsTypesComponent} from "./dashboard/locations-types/locations-types.component";
+import { SummaryComponent } from './summary/summary.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {LocationsTypesComponent} from "./dashboard/locations-types/locations-typ
     LocationSearchComponent,
     LocationsListComponent,
     LocationsTypesComponent,
+    SummaryComponent,
   ],
   imports: [
     CommonModule,

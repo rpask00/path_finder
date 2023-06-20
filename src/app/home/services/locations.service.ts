@@ -58,6 +58,9 @@ export class LocationsService {
   public removedLocation$ = new Subject<ILocation>();
   public autocompleteTypes$ = new BehaviorSubject<string[]>([])
 
+  readonly driersColors = new Array(10).fill(0).map(() =>
+      `#${Math.floor(Math.random() * 16777215).toString(16)}`
+  )
 
   public locations$: Observable<ILocation[]> = this.searchControl.valueChanges.pipe(
     startWith([]),
@@ -67,7 +70,7 @@ export class LocationsService {
     }),
   )
 
-  public pickedLocations$ = merge(
+  public pickedLocations$: Observable<ILocation[]> = merge(
     this.searchControl.valueChanges.pipe(map(location => ({type: 'add', location}))),
     this.removedLocation$.pipe(map(location => ({type: 'remove', location})))
   ).pipe(

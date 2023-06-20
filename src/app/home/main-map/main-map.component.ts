@@ -37,10 +37,8 @@ export class MainMapComponent implements OnInit {
 
   public mapRoutes$: Observable<Layer[]> = this._locationsService.routeResponse$.asObservable().pipe(
     map((routeResponse) => {
-      const vehicle_count = routeResponse.reduce((acc, {vehicle_id}) => Math.max(acc, vehicle_id), 0) + 1
-      const randomColors = new Array(vehicle_count).fill(0).map(() => Math.floor(Math.random() * 16777215).toString(16));
       return routeResponse.map(({waypoints, vehicle_id}) => {
-        const color = `#${randomColors[vehicle_id]}`
+        const color = `${this._locationsService.driersColors[vehicle_id]}`
         return new Polyline(waypoints, {color})
       });
     }),

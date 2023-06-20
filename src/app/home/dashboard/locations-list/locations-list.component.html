@@ -6,6 +6,7 @@
   <mat-chip-listbox aria-label="Dog selection">
 
     <mat-chip
+      class="chip-with-summary"
       *ngFor="let location of pickedLocations" color="accent"
       (removed)="removedLocation$.next(location)">
 

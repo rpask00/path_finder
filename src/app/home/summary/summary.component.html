@@ -1,0 +1,31 @@
+<ng-container *ngIf="routeSummaries$ | async as routeSummaries">
+
+
+  <mat-accordion *ngIf="routeSummaries.length > 0">
+    <mat-expansion-panel>
+
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Podsumowanie
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <section *ngFor="let routeSummary of routeSummaries">
+        <h4 [style.color]="routeSummary.vehicle_color">Kierowca nr.{{routeSummary.vehicle_id + 1}}</h4>
+
+        <p>Przystanki:</p>
+        <ol>
+          <li class="mb-2" *ngFor="let segment of routeSummary.segments">
+            <mat-chip class="chip-with-summary">
+              <div class="chip-content">
+                <p class="mb-0">{{segment.structured_formatting.main_text }}</p>
+                <p class="mb-1 secondary_text">{{segment.structured_formatting.secondary_text }}</p>
+              </div>
+            </mat-chip>
+          </li>
+        </ol>
+      </section>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>

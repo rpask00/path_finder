@@ -4,6 +4,9 @@ import {Component} from '@angular/core';
   selector: 'app-home',
   template: `
       <section class="container-fluid w-100">
+          <div class="summary-container">
+              <app-summary></app-summary>
+          </div>
           <div class="dashboard-container">
               <app-dashboard></app-dashboard>
           </div>
