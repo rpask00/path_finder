@@ -30,7 +30,6 @@ export class SummaryComponent {
                 segments: []
               })
             }
-            console.log('mapPoints', locations)
             const route = routes.find((route) => route.vehicle_id === element.vehicle_id)
             route?.segments.push(
               locations.find((point) => point.place_id === element.from)!,
@@ -46,7 +45,6 @@ export class SummaryComponent {
   constructor(
     private _locationsService: LocationsService
   ) {
-    this.routeSummaries$.subscribe(console.log)
   }
 
 }
